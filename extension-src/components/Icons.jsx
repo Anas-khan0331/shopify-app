@@ -44,7 +44,7 @@ export function BackArrowIcon() {
       height="20"
       viewBox="0 0 24 24"
       fill="none"
-      stroke="currentColor"
+      stroke="#1F1F1F"
       strokeWidth="2"
     >
       <line x1="19" y1="12" x2="5" y2="12" />

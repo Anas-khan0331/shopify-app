@@ -7066,7 +7066,7 @@
         height: "20",
         viewBox: "0 0 24 24",
         fill: "none",
-        stroke: "currentColor",
+        stroke: "#1F1F1F",
         strokeWidth: "2",
         children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx("line", { x1: "19", y1: "12", x2: "5", y2: "12" }),
@@ -7416,7 +7416,7 @@
                 },
                 children: [
                   /* @__PURE__ */ jsxRuntimeExports.jsx(BackArrowIcon, {}),
-                  /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Back" })
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { color: "#1F1F1F" }, children: "Back" })
                 ]
               }
             ) : /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { children: title }),
@@ -8290,7 +8290,7 @@
     errors: PropTypes.object.isRequired,
     saveSession: PropTypes.func.isRequired
   };
-  const styles$2 = {
+  const styles$3 = {
     wrapper: {
       display: "flex",
       gap: 16,
@@ -8344,20 +8344,20 @@
     imageSize,
     contentGap
   }) {
-    return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { ...styles$2.wrapper, marginBottom: contentGap }, children: [
+    return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { ...styles$3.wrapper, marginBottom: contentGap }, children: [
       image && /* @__PURE__ */ jsxRuntimeExports.jsx(
         "img",
         {
           src: image,
           alt: imageAlt || title || "Your Device",
           onError: onImageError,
-          style: { ...styles$2.image, width: imageSize, height: imageSize }
+          style: { ...styles$3.image, width: imageSize, height: imageSize }
         }
       ),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: styles$2.content, children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { style: styles$2.title, children: title || "Your Device" }),
-        subtitle && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { style: styles$2.subtitle, children: subtitle }),
-        price !== null && price !== void 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { style: styles$2.price, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: styles$3.content, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { style: styles$3.title, children: title || "Your Device" }),
+        subtitle && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { style: styles$3.subtitle, children: subtitle }),
+        price !== null && price !== void 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { style: styles$3.price, children: [
           pricePrefix,
           price
         ] })

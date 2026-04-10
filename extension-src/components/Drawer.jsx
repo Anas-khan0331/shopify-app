@@ -50,7 +50,7 @@ export default function Drawer({
               }}
             >
               <BackArrowIcon />
-              <span>Back</span>
+              <span style={{ color: "#1F1F1F" }}>Back</span>
             </button>
           ) : (
             <h3>{title}</h3>
