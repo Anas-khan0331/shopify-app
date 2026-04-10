@@ -1,0 +1,26 @@
+{% comment %}
+  Product Search Snippet
+  Usage: {% render 'product-search' %}
+{% endcomment %}
+
+<div class="search-container">
+  <form id="hero-search-form" class="hero-search">
+    <input
+      type="text"
+      id="search-input"
+      placeholder="Search for products..."
+      required
+    />
+    <button type="submit" class="hero-search__icon" id="search-submit">
+      <svg width="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+      <div class="loading-spinner hidden"></div>
+    </button>
+    <div id="search-results" class="hero-search__items hidden">
+      <div class="hero-search__items-wrapper" id="results-list">
+      </div>
+    </div>
+  </form>
+</div>
