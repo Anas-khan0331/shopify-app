@@ -2,8 +2,12 @@ import { useCallback, useRef, useState } from "react";
 import { API_BASE } from "../utils/constants";
 
 function createPdfUrlFromArrayBuffer(arrayBuffer) {
-  const blob = new Blob([arrayBuffer], { type: "application/pdf" });
-  return window.URL.createObjectURL(blob);
+  const bytes = new Uint8Array(arrayBuffer);
+  let binary = "";
+  for (let i = 0; i < bytes.byteLength; i++) {
+    binary += String.fromCharCode(bytes[i]);
+  }
+  return `data:application/pdf;base64,${btoa(binary)}`;
 }
 
 function downloadPdfFromArrayBuffer(arrayBuffer, fileName) {
@@ -47,9 +51,6 @@ export default function useShippingLabel() {
 
       const url = createPdfUrlFromArrayBuffer(arrayBuffer);
 
-      if (urlRef.current) {
-        window.URL.revokeObjectURL(urlRef.current);
-      }
       urlRef.current = url;
 
       return {
@@ -76,10 +77,7 @@ export default function useShippingLabel() {
   }, []);
 
   const cleanup = useCallback(() => {
-    if (urlRef.current) {
-      window.URL.revokeObjectURL(urlRef.current);
-      urlRef.current = null;
-    }
+    urlRef.current = null;
     arrayBufferRef.current = null;
   }, []);
 

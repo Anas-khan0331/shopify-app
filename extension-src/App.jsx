@@ -107,9 +107,6 @@ export default function App() {
 
   return (
     <div className="wishlist-app" style={cssVariables}>
-      {/* This button only shows where the App Embed 'block' is specifically placed.
-          The 'swapproo-trigger' class is added here so the global listener also catches it.
-      */}
       <div className="trade-in-parent-container">
         <button
           type="button"

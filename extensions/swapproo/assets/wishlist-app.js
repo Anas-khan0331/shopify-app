@@ -8636,8 +8636,12 @@
     );
   }
   function createPdfUrlFromArrayBuffer(arrayBuffer) {
-    const blob = new Blob([arrayBuffer], { type: "application/pdf" });
-    return window.URL.createObjectURL(blob);
+    const bytes = new Uint8Array(arrayBuffer);
+    let binary = "";
+    for (let i = 0; i < bytes.byteLength; i++) {
+      binary += String.fromCharCode(bytes[i]);
+    }
+    return `data:application/pdf;base64,${btoa(binary)}`;
   }
   function downloadPdfFromArrayBuffer(arrayBuffer, fileName) {
     const blob = new Blob([arrayBuffer], { type: "application/pdf" });
@@ -8672,9 +8676,6 @@
         const arrayBuffer = await response.arrayBuffer();
         arrayBufferRef.current = arrayBuffer;
         const url = createPdfUrlFromArrayBuffer(arrayBuffer);
-        if (urlRef.current) {
-          window.URL.revokeObjectURL(urlRef.current);
-        }
         urlRef.current = url;
         return {
           url,
@@ -8697,10 +8698,7 @@
       return urlRef.current || "";
     }, []);
     const cleanup = reactExports.useCallback(() => {
-      if (urlRef.current) {
-        window.URL.revokeObjectURL(urlRef.current);
-        urlRef.current = null;
-      }
+      urlRef.current = null;
       arrayBufferRef.current = null;
     }, []);
     return {
@@ -8739,7 +8737,11 @@
     const { order, product, variant } = navigation.params;
     const [imageFailed, setImageFailed] = reactExports.useState(false);
     const orderId = (order == null ? void 0 : order._id) || (order == null ? void 0 : order.id) || "";
-    const { downloadShippingLabel, downloadLabel, getUrl, cleanup, isLoading } = useShippingLabel();
+    const { downloadShippingLabel, downloadLabel, cleanup, isLoading } = useShippingLabel();
+    reactExports.useEffect(() => {
+      const modalBody = document.getElementById("wishlist-modal-body");
+      if (modalBody) modalBody.scrollTop = 0;
+    }, []);
     reactExports.useEffect(() => {
       if (orderId) {
         downloadShippingLabel(orderId);
@@ -8764,28 +8766,18 @@
           contentGap: 32
         }
       ),
-      orderId && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { id: "shipping-label", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { id: "shipping-label-preview", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-          "iframe",
-          {
-            src: getUrl() ? `${getUrl()}#toolbar=0&navpanes=0&scrollbar=0` : "",
-            title: "Shipping Label",
-            id: "shipping-label-iframe"
-          }
-        ) }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs(
-          "button",
-          {
-            id: "shipping-label-button",
-            disabled: isLoading,
-            onClick: () => downloadLabel("shipping-label.pdf"),
-            children: [
-              isLoading ? "Loading..." : "Download Label",
-              /* @__PURE__ */ jsxRuntimeExports.jsx(DownloadIcon, {})
-            ]
-          }
-        )
-      ] }),
+      orderId && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { id: "shipping-label", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        "button",
+        {
+          id: "shipping-label-button",
+          disabled: isLoading,
+          onClick: () => downloadLabel("shipping-label.pdf"),
+          children: [
+            isLoading ? "Loading..." : "Download Shipping Label",
+            /* @__PURE__ */ jsxRuntimeExports.jsx(DownloadIcon, {})
+          ]
+        }
+      ) }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs(
         "div",
         {

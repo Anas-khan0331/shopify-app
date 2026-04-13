@@ -41,6 +41,11 @@ export default function ConfirmationPage({ navigation }) {
     useShippingLabel();
 
   useEffect(() => {
+    const modalBody = document.getElementById("wishlist-modal-body");
+    if (modalBody) modalBody.scrollTop = 0;
+  }, []);
+
+  useEffect(() => {
     if (orderId) {
       downloadShippingLabel(orderId);
     }
@@ -67,30 +72,19 @@ export default function ConfirmationPage({ navigation }) {
         imageSize={87}
         contentGap={32}
       />
-
       {/* Shipping Label */}
       {orderId && (
         <div id="shipping-label">
-          <div id="shipping-label-preview">
-            <iframe
-              src={
-                getUrl() ? `${getUrl()}#toolbar=0&navpanes=0&scrollbar=0` : ""
-              }
-              title="Shipping Label"
-              id="shipping-label-iframe"
-            />
-          </div>
           <button
             id="shipping-label-button"
             disabled={isLoading}
             onClick={() => downloadLabel("shipping-label.pdf")}
           >
-            {isLoading ? "Loading..." : "Download Label"}
+            {isLoading ? "Loading..." : "Download Shipping Label"}
             <DownloadIcon />
           </button>
         </div>
       )}
-      {/* Thank-you message */}
       <div
         id="checkout-confirmation-detail"
         style={{
